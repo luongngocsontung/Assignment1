@@ -4,6 +4,7 @@ import numpy as np
 ANSWER_KEY = "B,A,D,D,C,B,D,A,C,C,D,B,A,B,A,C,B,D,A,C,A,A,B,D,D".split(',')
 FILE_NAME = ""
 
+# Check if line is Valid
 def check_valid(line: str):
     valid = True
     values = line.split(',')
@@ -43,7 +44,7 @@ def analyze_grades(grades: list):
     if(len(grade_np) % 2 != 0):
         median = grade_np[int((len(grade_np) - 1) / 2)]
     else:
-        # print(">>>", len(grade_np)/2, type(len(grade_np)/2))
+        # Sum of 2 numbers placed between
         sum2Middle = grade_np[int(len(grade_np)/2)] + grade_np[int(len(grade_np)/2) - 1]
         median = sum2Middle / 2
     
@@ -101,20 +102,16 @@ def analyze(file: TextIOWrapper):
     
 def main():
     while(True):
-        close = False
         global FILE_NAME
         FILE_NAME = input("Enter a class file to grade (i.e. class1 for class1.txt): ")
         file = None
         try:
             file = open(FILE_NAME+'.txt', 'r')
             print(f"Successfully opened {FILE_NAME}.txt")
-            close = True
         except:
             print("File cannot be found.")
 
         if(file):
             analyze(file)
-
-        # if(close): break # Keep input file's name until file is found
 
 main()
