@@ -1,5 +1,6 @@
 from io import TextIOWrapper
 import numpy as np
+import pandas as pd
 
 ANSWER_KEY = "B,A,D,D,C,B,D,A,C,C,D,B,A,B,A,C,B,D,A,C,A,A,B,D,D".split(',')
 FILE_NAME = ""
@@ -40,13 +41,7 @@ def analyze_grades(grades: list):
     max = grade_np.max()
     min = grade_np.min()
     range_score = max - min
-    
-    if(len(grade_np) % 2 != 0):
-        median = grade_np[int((len(grade_np) - 1) / 2)]
-    else:
-        # Sum of 2 numbers placed between
-        sum2Middle = grade_np[int(len(grade_np)/2)] + grade_np[int(len(grade_np)/2) - 1]
-        median = sum2Middle / 2
+    median = pd.Series(grades).median()
     
     print("Mean (average) score: ", mean)
     print("Highest score: ", max)
@@ -58,7 +53,7 @@ def write_student_grade(grades: list, students: list):
     try:
         with open(f"{FILE_NAME}_grades.txt", 'w') as wf:
             for i in range(len(grades)):
-                wf.write(f"{students[i],grades[i]}\n")
+                wf.write(f"{students[i]},{grades[i]}\n")
     except IOError:
         print("Error: Couldn't write to file")
 
